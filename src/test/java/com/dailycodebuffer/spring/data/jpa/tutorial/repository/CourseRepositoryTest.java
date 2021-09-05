@@ -5,7 +5,9 @@ import com.dailycodebuffer.spring.data.jpa.tutorial.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,6 +40,18 @@ class CourseRepositoryTest {
                 .build();
 
         courseRepository.save(course);
+    }
+
+    @Test
+    public void findAllPagination() {
+        PageRequest firstPageWithThreeRecords = PageRequest.of(0, 3);
+
+        PageRequest secondPageWithTwoRecords = PageRequest.of(1, 2);
+
+        List<Course> courses = courseRepository.findAll(firstPageWithThreeRecords).getContent();
+
+        System.out.println("courses = " + courses);
+
     }
 
 
